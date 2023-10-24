@@ -1,0 +1,58 @@
+
+
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#brand{
+    font-size: 30px;
+}
+
+/* HOME PAGE */
+
+#home-pg{
+    height: 1000px
+}
+
+#hero-img{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+
+#car-vid{
+    width: 60%
+}
+
+
+
+/* CARS PAGE */
+#car-search-pg{
+    margin: 20px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.car-search{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#car-display{
+    display: flex;
+}
+
+#car-input{
+    text-align: center;
+    width: 300px;
+    height: 55px;
+    font-size: 25px;
+}
+
+#submit-button{
+    width: 150px;
+}

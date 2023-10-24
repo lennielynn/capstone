@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "display: grid",
+          "justify-content: space-evenly",
+          "grid-template-columns",
+          "grid-template-rows"
+        ]
+      }
+    ]
+  }
+}
