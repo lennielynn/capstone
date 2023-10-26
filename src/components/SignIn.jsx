@@ -17,34 +17,44 @@ const SignIn = () => {
       await signIn(email, password)
       navigate('/account')
     } catch (e) {
-      setError(e.message)
+      setError(window.alert('incorrect email or password'))
       console.log(e.message)
     }
   };
 
   return (
-    <div className='sign-in-form'>
+    <div id='sign-in-pg'>
       <div>
-        <h1>Sign in to your Tracker!</h1>
+        <h1>SIGN IN</h1>
         <p>
-          Don't have one?{' '}
+          Don't have an account?{' '}
           <Link to='/signup' className='underline'>
-            Sign Up 
+            SIGN UP
           </Link>
         </p>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id='sign-in-form'>
         <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Email Address</label>
-          <input onChange={(e) => setEmail(e.target.value)} className='border p-3' type='email' />
+          <label className='py-2 font-medium'>Email Address</label><br/><br/>
+          <input 
+          onChange={
+            (e) => setEmail(e.target.value)
+            } 
+            className='border p-3'
+            type='email' 
+            /><br/><br/>
         </div>
         <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Password</label>
-          <input onChange={(e) => setPassword(e.target.value)} className='border p-3' type='password' />
+          <label className='py-2 font-medium'>Password</label><br/><br/>
+          <input 
+          onChange={
+            (e) => setPassword(e.target.value)
+            } 
+            className='border p-3' 
+            type='password' 
+            /><br/><br/>
         </div>
-        <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Sign In
-        </button>
+        <button className='button'>Sign In</button>
       </form>
     </div>
   );

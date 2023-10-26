@@ -1,14 +1,26 @@
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import { MdOutlineRemoveCircle } from "react-icons/md"
+import { db } from '../firebase';
+import {
+  query,
+  collection,
+  onSnapshot,
+  addDoc,
+  doc,
+  where,
+  deleteDoc,
+  updateDoc
+} from 'firebase/firestore';
 
 const Account = () => {
     const { user, logout } = UserAuth();
     const navigate = useNavigate();
-
+    const [cars, setCars] = useState([])
 
 
     const handleLogout = async () => {
@@ -19,35 +31,67 @@ const Account = () => {
         } catch (e) {
           console.log(e.message);
         }
-      };
+    };
 
+      
+    useEffect(() => {
+        if (user && user.uid) {
+          const q = query(collection(db, 'favCars'), where('userID', '==', user.uid));
+          const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            let favoriteCarArr = [];
+            querySnapshot.forEach((car) => {
+              favoriteCarArr.push({ ...car.data(), id: car.id });
+            });
+            setCars(favoriteCarArr);
+          });
+          return () => unsubscribe;
+        } 
+    }, [user]);
+
+
+
+
+      const removeCar = async (id) => {
+        await deleteDoc(doc(db, 'favCars', id))
+    }
+
+    
     return (
-         <div>
+         <div id="account-pg">
             <button
             onClick={handleLogout}
-            id = "logout-button"
+            className='button'
             > LOGOUT</button>
 
-
-            <Row xs={1} md={2} className="g-4">
-            {
-            Array.from({ length: 4 }).map((_, idx) => (
-                <Col key={idx}>
-                <Card>
-                    <Card.Img variant="top" src="../Cars/Challenger/ch7.jpeg" alt='' />
-                    <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>
-                        This is a longer card with supporting text below as a natural
-                        lead-in to additional content. This content is a little bit
-                        longer.
-                    </Card.Text>
-                    </Card.Body>
-                </Card>
-                </Col>
-            ))}
-            </Row>
-        </div>
+          <div>
+          {cars.map((car) => { 
+             <div id='cards'>
+              <Row xs={1} md={2} className="g-4">
+              {Array.from({ length: cars.length }).map((_, idx) => (
+                  <Col key={idx}>
+                  <Card>
+                      <Card.Img variant="top" src="../Cars/Challenger/ch7.jpeg" alt='' />
+                      <Card.Body>
+                      <Card.Title>{`${car.make} ${car.model}`}</Card.Title>
+                      <Card.Text>
+                          {`Year: ${car.year}
+                          Class: ${car.class}
+                          Cylinders: ${car.cylinders}`}
+                      </Card.Text>
+                      </Card.Body>
+                      <button 
+                      onClick={removeCar}
+                      id='remove'>
+                        <MdOutlineRemoveCircle  size={30}/>
+                      </button>
+                  </Card>
+                  </Col>
+              ))}
+              </Row>
+              </div>
+          })}
+          </div>
+        </div> 
     );
 
 }

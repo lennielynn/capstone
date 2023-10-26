@@ -2,8 +2,15 @@ import { useState } from "react";
 import { apiKey } from '../secrets';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { UserAuth } from '../context/AuthContext';
+import { db } from '../firebase';
+import { MdOutlineAddCircle } from 'react-icons/md'
+import { collection, addDoc } from 'firebase/firestore';
+
+import Account from "./Account";
 
 const Cars = () => {
+    const { user } = UserAuth();
     const [formData, setFormData] = useState('');
     const [carDetails, setCarDetails] = useState({
        year: '',
@@ -13,13 +20,13 @@ const Cars = () => {
        cylinders: ''
     });
 
-    //get form input data
+    
     const getInputData = (formData) => {
         const [ make, model] = formData.split(' ');
         getApiData( make, model);
     }
 
-    //get api data
+
     const getApiData = async ( make, model) => {
         const res = await fetch('https://api.api-ninjas.com/v1/cars?model='+ model, {
             method: 'GET',
@@ -40,9 +47,30 @@ const Cars = () => {
     }
 
 
+
+    const addCarToFav = async () => {
+        console.log(carDetails.year)
+    try {
+      await addDoc(collection(db, 'favCars'), {
+        userID: user.uid,
+        year: carDetails.year,
+        make: carDetails.make,
+        model: carDetails.model,
+        class: carDetails.class,
+        cylinders: carDetails.cylinders,
+      });
+    } catch (error) {
+      console.error('Error adding document:', error);
+    } 
+    window.alert('Added to favorites!')
+  };
+    
+
+
+
     const setCarPhoto = () => {
         if (carDetails.model === 'challenger'){
-            const link = "/Cars/CH6.jpeg"
+            const link = "/Cars/08challenger.webp"
             return ( link )
         } else if (carDetails.model === 'supra') {
             const link = "/Cars/supra.jpg"
@@ -52,7 +80,8 @@ const Cars = () => {
             return ( link )
     }}
 
-    //display data/car form
+      
+
     return (
          <div id="car-search-pg">
             <div className="car-search">
@@ -83,8 +112,12 @@ const Cars = () => {
                     <ListGroup.Item>{`Cylinders: ${carDetails.cylinders} `}</ListGroup.Item>
                     <ListGroup.Item>{`Class: ${carDetails.class}`}</ListGroup.Item>
                 </ListGroup>
-                <button id="car-button"> favorite</button>
                 </Card>
+                <button 
+                onClick={addCarToFav} 
+                id="plus"> 
+                <MdOutlineAddCircle size={30}/>
+                </button>
             </div>
 
        </div>
