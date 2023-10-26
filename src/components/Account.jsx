@@ -62,21 +62,27 @@ const Account = () => {
             onClick={handleLogout}
             className='button'
             > LOGOUT</button>
-
-          <div>
-          {cars.map((car) => { 
-             <div id='cards'>
-              <Row xs={1} md={2} className="g-4">
-              {Array.from({ length: cars.length }).map((_, idx) => (
+         
+          <div id='cards'>
+            {cars.map((car) => {
+              return(
+             <div id='card'>
+              <Row>
+              {Array.from({ length: cars.length - cars.length / 2 }).map((_, idx) => (
                   <Col key={idx}>
                   <Card>
-                      <Card.Img variant="top" src="../Cars/Challenger/ch7.jpeg" alt='' />
+                      <Card.Img variant="top" src="" alt='' />
                       <Card.Body>
-                      <Card.Title>{`${car.make} ${car.model}`}</Card.Title>
+                      <Card.Title>{`${car.make} ${car.model}`}</Card.Title><br/>
                       <Card.Text>
-                          {`Year: ${car.year}
-                          Class: ${car.class}
-                          Cylinders: ${car.cylinders}`}
+                          {`Year: ${car.year}`}
+                      </Card.Text>
+                      <Card.Text>
+                          {`Class: ${car.class}`}
+                      </Card.Text>
+                      <Card.Text>
+                          {` Cylinders: ${car.cylinders}`}
+                         
                       </Card.Text>
                       </Card.Body>
                       <button 
@@ -89,8 +95,9 @@ const Account = () => {
               ))}
               </Row>
               </div>
-          })}
+          )})}
           </div>
+        
         </div> 
     );
 

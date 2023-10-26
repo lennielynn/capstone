@@ -156,7 +156,17 @@ a:link, a:visited{
 }
 
 #cards{
+    height: 900px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#card{
+    width: 35%;
+    height: 25%;
     margin: 20px;
+    text-align: left;
 }
 
 #logout-btn{
