@@ -7,10 +7,10 @@ must include:
     - Firebase
     - Third Party API
     - all 4 C.R.U.D. opperations
-        - Create
-        - Request
+        - Create - create car, creating user etc
+        - Request - requestion api data
         - Update
-        - Delete
+        - Delete - delete favorite
 
 
 

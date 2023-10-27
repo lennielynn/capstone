@@ -19,7 +19,6 @@ const Cars = () => {
        class: '',
        cylinders: ''
     });
-
     
     const getInputData = (formData) => {
         const [ make, model] = formData.split(' ');
@@ -47,7 +46,7 @@ const Cars = () => {
     }
 
 
-
+ // adds car to database
     const addCarToFav = async () => {
         console.log(carDetails.year)
     try {
@@ -84,6 +83,7 @@ const Cars = () => {
 
     return (
          <div id="car-search-pg">
+            <img src="//Cars/CH6.jpeg"></img>
             <div className="car-search">
                 <h1>CAR SEARCH</h1>
                 <form onSubmit={(e) => {

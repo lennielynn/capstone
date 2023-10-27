@@ -23,6 +23,15 @@ const Account = () => {
     const [cars, setCars] = useState([])
 
 
+    function titleCase(astring) {
+      let output = ''
+      const wordsArray = astring.split(' ')
+      for (const word of wordsArray) {
+        output += word[0].toUpperCase() + word.substring(1) + ' '
+      }
+      return output.trim()
+    }
+
     const handleLogout = async () => {
         try {
           await logout();
@@ -33,7 +42,6 @@ const Account = () => {
         }
     };
 
-      
     useEffect(() => {
         if (user && user.uid) {
           const q = query(collection(db, 'favCars'), where('userID', '==', user.uid));
@@ -50,30 +58,43 @@ const Account = () => {
 
 
 
-
       const removeCar = async (id) => {
-        await deleteDoc(doc(db, 'favCars', id))
-    }
+        await deleteDoc(doc(db, 'favCars', id));
+    };
 
-    
+    const setCarPhoto = (car) => {
+      if (car.model === 'challenger'){
+          const link = "/Cars/08challenger.webp"
+          return ( link )
+      } else if (car.model === 'supra') {
+          const link = "/Cars/supra.jpg"
+          return ( link )
+      } else if (car.model === 'mustang') {
+          const link = "/Cars/mustang.jpeg"
+          return ( link )
+  }}
+
+
     return (
          <div id="account-pg">
             <button
             onClick={handleLogout}
             className='button'
+            id='logout-btn'
             > LOGOUT</button>
-         
+          <h2>FAVORITES</h2>
+          <hr/>
           <div id='cards'>
             {cars.map((car) => {
               return(
              <div id='card'>
               <Row>
-              {Array.from({ length: cars.length - cars.length / 2 }).map((_, idx) => (
+              {Array.from({ length: 1 }).map((_, idx) => (
                   <Col key={idx}>
                   <Card>
-                      <Card.Img variant="top" src="" alt='' />
+                      <Card.Img variant="top" src={setCarPhoto(car)}/>
                       <Card.Body>
-                      <Card.Title>{`${car.make} ${car.model}`}</Card.Title><br/>
+                      <Card.Title>{`${titleCase(car.make)} ${titleCase(car.model)}`}</Card.Title><br/>
                       <Card.Text>
                           {`Year: ${car.year}`}
                       </Card.Text>
@@ -86,7 +107,7 @@ const Account = () => {
                       </Card.Text>
                       </Card.Body>
                       <button 
-                      onClick={removeCar}
+                      onClick={() =>removeCar(car.id)}
                       id='remove'>
                         <MdOutlineRemoveCircle  size={30}/>
                       </button>
@@ -102,4 +123,5 @@ const Account = () => {
     );
 
 }
+
 export default Account

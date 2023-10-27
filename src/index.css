@@ -43,6 +43,13 @@ a:link, a:visited{
       background: url("/public/Cars/capstone.m4v") no-repeat;
       background-size: cover;
     }
+    #wheel-vid { display: none; }
+    #sign-in-pg {
+      background: url("/public/Cars/wheel.mov") no-repeat;
+      background-size: cover;
+    }
+    
+    
 }
 
 #car-vid {
@@ -58,7 +65,6 @@ a:link, a:visited{
   }
 
  #home-pg{
- 
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -82,14 +88,25 @@ a:link, a:visited{
 /* CARS PAGE */
 
 #car-search-pg{
-    margin: 20px;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
+    width: 100vw;
+    height: 1000px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    background: url('/public/Cars/CH6.jpeg') no-repeat;
+    background-size: cover;
+   
 }
 
 .car-search{
-    margin-bottom: 25px;
+
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -104,16 +121,24 @@ a:link, a:visited{
     width: 300px;
     height: 55px;
     font-size: 25px;
+    border-radius: 15px;
+    border: black solid 1px;
+    background-color:rgba(255, 255, 255, 0.647);
 }
 
 #submit-button{
-    width: 150px;
+    width:150px;
+    height:40px;
+    background-color:rgba(255, 255, 255, 0.647);
+    border: 1px black solid;
+    border-radius: 10px;
 }
 
 
 #plus{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     border: none;
+
     margin: 20px;
 }
 
@@ -122,14 +147,30 @@ a:link, a:visited{
 
 /* SIGN IN PAGE */
 
+#wheel-vid {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
+
 #sign-in-pg{
-    text-align: center;
-    display: flex;
+    display:flex;
     flex-direction: column;
     align-items: center;
+    height: auto;
+    color: white;
+    margin: 60px;
 }
 #sign-in-form{
     text-align: center;
+    
 }
 
 
@@ -137,11 +178,21 @@ a:link, a:visited{
 /* SIGN UP PAGE */
 
 #sign-up-pg{
-    text-align: center;
-    display: flex;
+    display:flex;
     flex-direction: column;
     align-items: center;
+    height: auto;
+    color: white;
+    margin: 60px;
 }
+
+#sign{
+    color: white;
+    text-decoration: underline;
+    margin: 15px;
+    font-size: 20px;
+}
+
 #sign-up-form{
     text-align: center;
 }
@@ -151,8 +202,6 @@ a:link, a:visited{
 /* ACCOUNT PAGE */
 #account-pg{
     text-align: center;
-    height: 1000px;
-    
 }
 
 #cards{
@@ -163,17 +212,17 @@ a:link, a:visited{
 }
 
 #card{
-    width: 35%;
-    height: 25%;
+    width: 500px;
+    height: 300px;
     margin: 20px;
     text-align: left;
 }
 
 #logout-btn{
-    border: none;
+    border: black solid 1px;
     background-color: white;
     font-size: 20px;
-    margin: 15px;
+    margin: 55px;
 }
 #remove{
     border: none;

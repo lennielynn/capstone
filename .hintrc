@@ -10,7 +10,8 @@
           "display: grid",
           "justify-content: space-evenly",
           "grid-template-columns",
-          "grid-template-rows"
+          "grid-template-rows",
+          "object-fit"
         ]
       }
     ]

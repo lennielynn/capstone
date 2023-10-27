@@ -24,15 +24,16 @@ const SignIn = () => {
 
   return (
     <div id='sign-in-pg'>
-      <div>
-        <h1>SIGN IN</h1>
-        <p>
-          Don't have an account?{' '}
-          <Link to='/signup' className='underline'>
-            SIGN UP
-          </Link>
-        </p>
-      </div>
+      <video id="wheel-vid" src={'/Cars/wheel.mov'} autoPlay loop muted></video>
+        <div>
+          <h1>SIGN IN</h1>
+          <p>
+            Don't have an account?{' '}
+            <Link to='/signup' id='sign'>
+              SIGN UP
+            </Link>
+          </p>
+        </div>
       <form onSubmit={handleSubmit} id='sign-in-form'>
         <div className='flex flex-col py-2'>
           <label className='py-2 font-medium'>Email Address</label><br/><br/>

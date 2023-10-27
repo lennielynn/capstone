@@ -28,26 +28,27 @@ const SignUp = () => {
 
   return (
     <div id='sign-up-pg'>
-      <div>
-        <h1 className='text-2xl font-bold py-2'>SIGN UP</h1>
-        <p className='py-2'>
-          Already have an account?{' '}
-          <Link to='/' className='underline'>
-            SIGN IN.
-          </Link>
-        </p>
-      </div>
-      <form onSubmit={handleSubmit} id='sign-up-form'>
-        <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Email Address</label><br/><br/>
-          <input onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email"/><br/><br/>
+      <video id="wheel-vid" src={'/Cars/wheel.mov'} autoPlay loop muted></video>
+        <div>
+          <h1 className='text-2xl font-bold py-2'>SIGN UP</h1>
+          <p className='py-2'>
+            Already have an account?{' '}
+            <Link to='/signin' id='sign'>
+              SIGN IN
+            </Link>
+          </p>
         </div>
-        <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Password</label><br/><br/>
-          <input onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password"/><br/><br/>
-        </div>
-        <button className='button'>Sign Up</button>
-      </form>
+        <form onSubmit={handleSubmit} id='sign-up-form'>
+          <div className='flex flex-col py-2'>
+            <label className='py-2 font-medium'>Email Address</label><br/><br/>
+            <input onChange={(e) => setEmail(e.target.value)} className='border p-3' type="email"/><br/><br/>
+          </div>
+          <div className='flex flex-col py-2'>
+            <label className='py-2 font-medium'>Password</label><br/><br/>
+            <input onChange={(e) => setPassword(e.target.value)} className='border p-3' type="password"/><br/><br/>
+          </div>
+          <button className='button'>Sign Up</button>
+        </form>
     </div>
   )
 }
