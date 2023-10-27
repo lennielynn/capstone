@@ -138,11 +138,31 @@ a:link, a:visited{
 #plus{
     background-color: rgba(255, 255, 255, 0);
     border: none;
-
     margin: 20px;
 }
 
+#edit-form{
+    text-align: center;
+    height: 400px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
 
+}
+
+#edit-btn{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin: 20px;
+}
+#update-btn{
+    width:150px;
+    height:30px;
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 5px;
+    margin-left: 170px;
+}
 
 
 /* SIGN IN PAGE */

@@ -6,6 +6,7 @@ import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineRemoveCircle } from "react-icons/md"
 import { db } from '../firebase';
+import { GrEdit } from 'react-icons/gr';
 import {
   query,
   collection,
@@ -21,6 +22,9 @@ const Account = () => {
     const { user, logout } = UserAuth();
     const navigate = useNavigate();
     const [cars, setCars] = useState([])
+    const [editFormData, setEditFormData] = useState(null);
+    const [editingCarId, setEditingCarID] = useState(null);
+  
 
 
     function titleCase(astring) {
@@ -56,6 +60,40 @@ const Account = () => {
         } 
     }, [user]);
 
+    const handleEditInputChange = (e) => {
+      const { name, value } = e.target;
+      setEditFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    };
+    // start editing function
+    const startEditing = (car) => {
+      setEditFormData({
+        make: car.make,
+        model: car.model,
+        year: car.year,
+        class: car.class,
+        cylinders: car.cylinders,
+      });
+      setEditingCarID(car.id);
+    };
+
+
+    const updateCar = async () => {
+      if (editingCarId) {
+        const carRef = doc(db, 'favCars', editingCarId);
+        await updateDoc(carRef, {
+          make: editFormData.make,
+          model:editFormData.model,
+          year: editFormData.year,
+          class:editFormData.class,
+          cylinders: editFormData.cylinders,
+        });
+        setEditingCarID(null);
+        setEditFormData(null);
+      }
+    };
 
 
       const removeCar = async (id) => {
@@ -86,8 +124,10 @@ const Account = () => {
           <hr/>
           <div id='cards'>
             {cars.map((car) => {
+              const isEditingThisCar = editingCarId === car.id;
+            
               return(
-             <div id='card'>
+             <div id='card' key={car.id}> 
               <Row>
               {Array.from({ length: 1 }).map((_, idx) => (
                   <Col key={idx}>
@@ -111,14 +151,72 @@ const Account = () => {
                       id='remove'>
                         <MdOutlineRemoveCircle  size={30}/>
                       </button>
+                      <button 
+                      id='edit-btn'
+                      onClick={() => startEditing(car)}>
+                        <GrEdit size={30} />
+                      </button>
                   </Card>
                   </Col>
               ))}
               </Row>
+                {isEditingThisCar && (
+                    <div className='mt-4' id='edit-form'>
+                      <h3>Input Car Info</h3>
+                      <input
+                        value={editFormData.make}
+                        onChange={handleEditInputChange}
+                        className='border p-2 w-full text-xl'
+                        type='text'
+                        placeholder='Enter Car Make'
+                        name='make'
+                      />
+                      <input
+                        value={editFormData.model}
+                        onChange={handleEditInputChange}
+                        className='border p-2 w-full text-xl'
+                        type='text'
+                        placeholder='Enter Car Model'
+                        name='model'
+                      />
+                      <input
+                        value={editFormData.year}
+                        onChange={handleEditInputChange}
+                        className='border p-2 w-full text-xl'
+                        type='number'
+                        placeholder='Enter Car Year'
+                        name='year'
+                      />
+                      <input
+                        value={editFormData.class}
+                        onChange={handleEditInputChange}
+                        className='border p-2 w-full text-xl'
+                        type='text'
+                        placeholder='Enter Car class'
+                        name='class'
+                      />
+                      <input
+                        value={editFormData.cylinders}
+                        onChange={handleEditInputChange}
+                        className='border p-2 w-full text-xl'
+                        type='number'
+                        placeholder='Enter Car Cylinders'
+                        name='cylinders'
+                      />
+                      <button
+                        id='update-btn'
+                        onClick={() => updateCar(car.id)}
+                      >Update Car
+                      </button>
+                    </div>
+                )}
+
               </div>
           )})}
           </div>
-        
+          
+             
+          
         </div> 
     );
 
